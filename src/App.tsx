@@ -266,6 +266,18 @@ export default function App() {
     sessionStorage.setItem("veridict-transactions", JSON.stringify(ledger));
   }, [ledger]);
   function hydrate(r: Agreement) {
+    const matchingTemplate = CASE_SCENARIOS.findIndex(
+      (t) =>
+        t.mode === r.equivalence_mode &&
+        t.criteria.length === r.criteria.length &&
+        t.criteria.every(
+          (c, i) =>
+            c.id === r.criteria[i].id &&
+            c.text === r.criteria[i].text &&
+            c.weight_bps === r.criteria[i].weight_bps,
+        ),
+    );
+    if (matchingTemplate >= 0) setTemplate(matchingTemplate);
     setRecord(r);
     setId(r.id);
     setClause(r.clause);
