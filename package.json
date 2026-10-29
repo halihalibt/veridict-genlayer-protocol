@@ -1,0 +1,32 @@
+{
+  "name": "veridict-genlayer-protocol",
+  "private": true,
+  "version": "2.4.1",
+  "description": "Evidence-bound natural-language agreement adjudication on GenLayer Stable Studionet.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "node scripts/build-assets.mjs && tsc && vite build",
+    "preview": "vite preview",
+    "test:contract": "python3 contracts/test_veridict_contract.py",
+    "verify:onchain": "node scripts/verify-deployment.mjs",
+    "deploy:studionet": "node scripts/onchain.mjs"
+  },
+  "dependencies": {
+    "genlayer-js": "1.1.8",
+    "lucide-react": "^0.454.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "viem": "2.57.13"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}

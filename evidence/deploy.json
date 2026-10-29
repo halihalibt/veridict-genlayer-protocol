@@ -1,0 +1,33 @@
+{
+  "hash": "0xb58c95103246ed5c9555424ab3a426ebe93cdaed5266fd94c997a1405a81d3ce",
+  "chainId": 61999,
+  "status": "ACCEPTED",
+  "from": "0x33D6eB9D6C6B44EC6D9B456f4DE621237aF32E0e",
+  "to": "0x5F59e0d421336FFEbDBf143a60637ae72d50Ab04",
+  "value": 0,
+  "consensus": {
+    "votes": {
+      "0x045291B293B9D68969c18B6637A8258038cf787A": "agree",
+      "0x336458747913FE397be82c4F0926ACeB3ab13618": "idle",
+      "0x4868b172ddEBC18b5219aaCeAB77ae0Df330c83A": "agree",
+      "0x5847AF34a4e5bA96490f8c883598f68EC9B0B907": "idle",
+      "0x9C182DE7F93AdbE8ee3D62570613eC23c5683cAc": "agree"
+    },
+    "leaderReceipts": [
+      {
+        "execution_result": "SUCCESS",
+        "error": null,
+        "vote": null,
+        "result": "AAA=",
+        "gas_used": 0
+      },
+      {
+        "execution_result": "SUCCESS",
+        "error": null,
+        "vote": "agree",
+        "result": "AAA=",
+        "gas_used": 0
+      }
+    ]
+  }
+}

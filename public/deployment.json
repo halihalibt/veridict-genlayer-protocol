@@ -1,0 +1,368 @@
+{
+  "network": "GenLayer Stable Studionet",
+  "chainId": 61999,
+  "rpc": "https://studio.genlayer.com/api",
+  "deployer": "0x33D6eB9D6C6B44EC6D9B456f4DE621237aF32E0e",
+  "sourceSha256": "41c2e0b443e382b30e1ad11480e8333fda9367cfe31933a5514bccfae9dc8c4a",
+  "transactions": {
+    "deploy": "0xb58c95103246ed5c9555424ab3a426ebe93cdaed5266fd94c997a1405a81d3ce",
+    "create-VRD-FULL-01": "0xc00d27a485f0c9db60a3609323a276066e451c7f11350e4c652ea34f6344b27b",
+    "judge-VRD-FULL-01": "0x156b0c2e06a4baa1778b3f7df2b5c336dab940e85d850bae67a6172f011751a5",
+    "create-VRD-PARTIAL-01": "0x1af6cfe3dfe54e631f01a0f48e8722e55b252c411807bf70e8d91f0933647441",
+    "judge-VRD-PARTIAL-01": "0xa4fb38fea1d9d3ba6f378af0588598c04db4453437efdc1992e975d8dbf4a3c9",
+    "create-VRD-UNKNOWN-01": "0x8c278e0091b6809328e19ae69f19760853d850675f57d0f84bee1454461ff4cf",
+    "judge-VRD-UNKNOWN-01": "0x2541478212b3e41580f695365954d0d801237dd66bf157dc7dff0e5a3d6fcd38",
+    "review": "0x5d764227c91bb9bf47b2138b0416a8bfbaafa187a49485375b3ccf595e1f8dce",
+    "reassess": "0xe2fc143b5270daa6fe3bb51c30358816588511a78fabc2d4bca254ae789bffc4"
+  },
+  "cases": [
+    {
+      "id": "VRD-FULL-01",
+      "title": "Documentation delivery",
+      "expectedVerdict": "FULFILLED",
+      "expectedRatioBps": 10000,
+      "state": {
+        "assessment": {
+          "findings": [
+            {
+              "id": "purpose",
+              "quote": "This domain is for use in documentation examples without needing permission.",
+              "reason": "The evidence snapshot explicitly states the domain's purpose is for use in documentation examples.",
+              "status": "PASS"
+            },
+            {
+              "id": "permission",
+              "quote": "This domain is for use in documentation examples without needing permission.",
+              "reason": "The text directly states that the domain can be used without needing permission.",
+              "status": "PASS"
+            }
+          ]
+        },
+        "beneficiary": "0x33d6eb9d6c6b44ec6d9b456f4de621237af32e0e",
+        "claimant_statement": "Claimant asserts every condition is fully met. Verify the evidence independently; this assertion itself is not proof.",
+        "clause": "Evaluate this reference-page delivery against the agreed independently weighted acceptance criteria. Amounts are nominal test units only.",
+        "creator": "0x33d6eb9d6c6b44ec6d9b456f4de621237af32e0e",
+        "criteria": [
+          {
+            "id": "purpose",
+            "text": "The page explicitly identifies this domain as intended for documentation examples.",
+            "weight_bps": 7000
+          },
+          {
+            "id": "permission",
+            "text": "The page explicitly permits documentation use without needing permission.",
+            "weight_bps": 3000
+          }
+        ],
+        "equivalence_mode": "independent",
+        "escrow_amount": 45000,
+        "evidence_sha256": "25ddf2c883e0d1958ea971d279a7e4f0fd446724ee3db7db19dadabd4a62e484",
+        "evidence_snapshot": "<!doctype html><html lang=en><head><meta charset=utf-8><link rel=icon href=data:,><meta name=viewport content=\"width=device-width,initial-scale=1\"><title>Example Domain</title><style>html{color-scheme:light dark;background:light-dark(#eee,#222)}body{font:16px/1.6 system-ui,sans-serif;max-width:26em;margin:auto;padding:25vh 2em 2em;text-align:center}</style></head><body><p>This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes.</p><script src=/s.js></script></body></html>\n",
+        "evidence_url": "https://example.com/",
+        "history": [
+          {
+            "assessment": {
+              "findings": [
+                {
+                  "id": "purpose",
+                  "quote": "This domain is for use in documentation examples without needing permission.",
+                  "reason": "The evidence snapshot explicitly states the domain's purpose is for use in documentation examples.",
+                  "status": "PASS"
+                },
+                {
+                  "id": "permission",
+                  "quote": "This domain is for use in documentation examples without needing permission.",
+                  "reason": "The text directly states that the domain can be used without needing permission.",
+                  "status": "PASS"
+                }
+              ]
+            },
+            "evidence_sha256": "25ddf2c883e0d1958ea971d279a7e4f0fd446724ee3db7db19dadabd4a62e484",
+            "payout_ratio_bps": 10000,
+            "revision": 1,
+            "status": "FINALIZED",
+            "verdict": "FULFILLED"
+          }
+        ],
+        "id": "VRD-FULL-01",
+        "nominal_payout": 45000,
+        "payout_ratio_bps": 10000,
+        "protocol": "veridict-2.4.1",
+        "review_count": 0,
+        "revision": 1,
+        "status": "FINALIZED",
+        "unit": "TEST",
+        "verdict": "FULFILLED"
+      },
+      "verifiedAt": "2026-10-29T19:22:57.132Z"
+    },
+    {
+      "id": "VRD-PARTIAL-01",
+      "title": "Production readiness",
+      "expectedVerdict": "PARTIAL_SETTLEMENT",
+      "expectedRatioBps": 7000,
+      "state": {
+        "assessment": {
+          "findings": [
+            {
+              "id": "purpose",
+              "quote": "This domain is for use in documentation examples without needing permission.",
+              "reason": "The page explicitly states the domain is for documentation examples, directly satisfying the criterion.",
+              "status": "PASS"
+            },
+            {
+              "id": "production",
+              "quote": "This is not a service; avoid relying on it for testing and monitoring purposes.",
+              "reason": "The page explicitly warns against relying on the domain operationally, contradicting a recommendation to use it in operations.",
+              "status": "FAIL"
+            }
+          ]
+        },
+        "beneficiary": "0x33d6eb9d6c6b44ec6d9b456f4de621237af32e0e",
+        "claimant_statement": "Claimant asserts every condition is fully met. Verify the evidence independently; this assertion itself is not proof.",
+        "clause": "Evaluate this reference-page delivery against the agreed independently weighted acceptance criteria. Amounts are nominal test units only.",
+        "creator": "0x33d6eb9d6c6b44ec6d9b456f4de621237af32e0e",
+        "criteria": [
+          {
+            "id": "purpose",
+            "text": "The page explicitly identifies this domain as intended for documentation examples.",
+            "weight_bps": 7000
+          },
+          {
+            "id": "production",
+            "text": "The page explicitly recommends using this domain in operations.",
+            "weight_bps": 3000
+          }
+        ],
+        "equivalence_mode": "audited",
+        "escrow_amount": 45000,
+        "evidence_sha256": "25ddf2c883e0d1958ea971d279a7e4f0fd446724ee3db7db19dadabd4a62e484",
+        "evidence_snapshot": "<!doctype html><html lang=en><head><meta charset=utf-8><link rel=icon href=data:,><meta name=viewport content=\"width=device-width,initial-scale=1\"><title>Example Domain</title><style>html{color-scheme:light dark;background:light-dark(#eee,#222)}body{font:16px/1.6 system-ui,sans-serif;max-width:26em;margin:auto;padding:25vh 2em 2em;text-align:center}</style></head><body><p>This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes.</p><script src=/s.js></script></body></html>\n",
+        "evidence_url": "https://example.com/",
+        "history": [
+          {
+            "assessment": {
+              "findings": [
+                {
+                  "id": "purpose",
+                  "quote": "This domain is for use in documentation examples without needing permission.",
+                  "reason": "The page explicitly states the domain is for documentation examples, directly satisfying the criterion.",
+                  "status": "PASS"
+                },
+                {
+                  "id": "production",
+                  "quote": "This is not a service; avoid relying on it for testing and monitoring purposes.",
+                  "reason": "The page explicitly warns against relying on the domain operationally, contradicting a recommendation to use it in operations.",
+                  "status": "FAIL"
+                }
+              ]
+            },
+            "evidence_sha256": "25ddf2c883e0d1958ea971d279a7e4f0fd446724ee3db7db19dadabd4a62e484",
+            "payout_ratio_bps": 7000,
+            "revision": 1,
+            "status": "FINALIZED",
+            "verdict": "PARTIAL_SETTLEMENT"
+          }
+        ],
+        "id": "VRD-PARTIAL-01",
+        "nominal_payout": 31500,
+        "payout_ratio_bps": 7000,
+        "protocol": "veridict-2.4.1",
+        "review_count": 0,
+        "revision": 1,
+        "status": "FINALIZED",
+        "unit": "TEST",
+        "verdict": "PARTIAL_SETTLEMENT"
+      },
+      "verifiedAt": "2026-10-29T19:23:25.063Z"
+    },
+    {
+      "id": "VRD-UNKNOWN-01",
+      "title": "Missing audit proof",
+      "expectedVerdict": "INSUFFICIENT_EVIDENCE",
+      "expectedRatioBps": 0,
+      "state": {
+        "assessment": {
+          "findings": [
+            {
+              "id": "purpose",
+              "quote": "This domain is for use in documentation examples without needing permission.",
+              "reason": "The evidence explicitly states the domain is intended for documentation examples, directly supporting the criterion.",
+              "status": "PASS"
+            },
+            {
+              "id": "audit",
+              "quote": "",
+              "reason": "The evidence snapshot contains no mention of a signed security audit or any audit-related information.",
+              "status": "UNKNOWN"
+            }
+          ]
+        },
+        "beneficiary": "0x33d6eb9d6c6b44ec6d9b456f4de621237af32e0e",
+        "claimant_statement": "Claimant asserts every condition is fully met. Verify the evidence independently; this assertion itself is not proof.",
+        "clause": "Evaluate this reference-page delivery against the agreed independently weighted acceptance criteria. Amounts are nominal test units only.",
+        "creator": "0x33d6eb9d6c6b44ec6d9b456f4de621237af32e0e",
+        "criteria": [
+          {
+            "id": "purpose",
+            "text": "The page explicitly identifies this domain as intended for documentation examples.",
+            "weight_bps": 7000
+          },
+          {
+            "id": "audit",
+            "text": "A signed security audit on this page proves zero critical vulnerabilities in a production application.",
+            "weight_bps": 3000
+          }
+        ],
+        "equivalence_mode": "independent",
+        "escrow_amount": 45000,
+        "evidence_sha256": "25ddf2c883e0d1958ea971d279a7e4f0fd446724ee3db7db19dadabd4a62e484",
+        "evidence_snapshot": "<!doctype html><html lang=en><head><meta charset=utf-8><link rel=icon href=data:,><meta name=viewport content=\"width=device-width,initial-scale=1\"><title>Example Domain</title><style>html{color-scheme:light dark;background:light-dark(#eee,#222)}body{font:16px/1.6 system-ui,sans-serif;max-width:26em;margin:auto;padding:25vh 2em 2em;text-align:center}</style></head><body><p>This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes.</p><script src=/s.js></script></body></html>\n",
+        "evidence_url": "https://example.com/",
+        "history": [
+          {
+            "assessment": {
+              "findings": [
+                {
+                  "id": "purpose",
+                  "quote": "This domain is for use in documentation examples without needing permission.",
+                  "reason": "The evidence explicitly states the domain is intended for documentation examples, directly supporting the criterion.",
+                  "status": "PASS"
+                },
+                {
+                  "id": "audit",
+                  "quote": "",
+                  "reason": "The evidence snapshot contains no mention of a signed security audit or any audit-related information.",
+                  "status": "UNKNOWN"
+                }
+              ]
+            },
+            "evidence_sha256": "25ddf2c883e0d1958ea971d279a7e4f0fd446724ee3db7db19dadabd4a62e484",
+            "payout_ratio_bps": 0,
+            "revision": 1,
+            "status": "REVIEW_REQUIRED",
+            "verdict": "INSUFFICIENT_EVIDENCE"
+          }
+        ],
+        "id": "VRD-UNKNOWN-01",
+        "nominal_payout": 0,
+        "payout_ratio_bps": 0,
+        "protocol": "veridict-2.4.1",
+        "review_count": 0,
+        "revision": 1,
+        "status": "REVIEW_REQUIRED",
+        "unit": "TEST",
+        "verdict": "INSUFFICIENT_EVIDENCE"
+      },
+      "verifiedAt": "2026-10-29T19:23:53.054Z"
+    }
+  ],
+  "verification": "VERIFIED",
+  "startedAt": "2026-10-29T19:22:08.261Z",
+  "contractAddress": "0x5F59e0d421336FFEbDBf143a60637ae72d50Ab04",
+  "review": {
+    "assessment": {
+      "findings": [
+        {
+          "id": "purpose",
+          "quote": "This domain is for use in documentation examples without needing permission.",
+          "reason": "The evidence explicitly states the domain is intended for documentation examples, directly supporting the criterion.",
+          "status": "PASS"
+        },
+        {
+          "id": "production",
+          "quote": "This is not a service; avoid relying on it for testing and monitoring purposes.",
+          "reason": "The evidence explicitly advises against using the domain in operations, contradicting the criterion.",
+          "status": "FAIL"
+        }
+      ]
+    },
+    "beneficiary": "0x33d6eb9d6c6b44ec6d9b456f4de621237af32e0e",
+    "claimant_statement": "Please reassess each criterion from the fetched evidence. Do not accept my assertion as proof.",
+    "clause": "Evaluate this reference-page delivery against the agreed independently weighted acceptance criteria. Amounts are nominal test units only.",
+    "creator": "0x33d6eb9d6c6b44ec6d9b456f4de621237af32e0e",
+    "criteria": [
+      {
+        "id": "purpose",
+        "text": "The page explicitly identifies this domain as intended for documentation examples.",
+        "weight_bps": 7000
+      },
+      {
+        "id": "production",
+        "text": "The page explicitly recommends using this domain in operations.",
+        "weight_bps": 3000
+      }
+    ],
+    "equivalence_mode": "audited",
+    "escrow_amount": 45000,
+    "evidence_sha256": "25ddf2c883e0d1958ea971d279a7e4f0fd446724ee3db7db19dadabd4a62e484",
+    "evidence_snapshot": "<!doctype html><html lang=en><head><meta charset=utf-8><link rel=icon href=data:,><meta name=viewport content=\"width=device-width,initial-scale=1\"><title>Example Domain</title><style>html{color-scheme:light dark;background:light-dark(#eee,#222)}body{font:16px/1.6 system-ui,sans-serif;max-width:26em;margin:auto;padding:25vh 2em 2em;text-align:center}</style></head><body><p>This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes.</p><script src=/s.js></script></body></html>\n",
+    "evidence_url": "https://example.com/",
+    "history": [
+      {
+        "assessment": {
+          "findings": [
+            {
+              "id": "purpose",
+              "quote": "This domain is for use in documentation examples without needing permission.",
+              "reason": "The page explicitly states the domain is for documentation examples, directly satisfying the criterion.",
+              "status": "PASS"
+            },
+            {
+              "id": "production",
+              "quote": "This is not a service; avoid relying on it for testing and monitoring purposes.",
+              "reason": "The page explicitly warns against relying on the domain operationally, contradicting a recommendation to use it in operations.",
+              "status": "FAIL"
+            }
+          ]
+        },
+        "evidence_sha256": "25ddf2c883e0d1958ea971d279a7e4f0fd446724ee3db7db19dadabd4a62e484",
+        "payout_ratio_bps": 7000,
+        "revision": 1,
+        "status": "FINALIZED",
+        "verdict": "PARTIAL_SETTLEMENT"
+      },
+      {
+        "assessment": {
+          "findings": [
+            {
+              "id": "purpose",
+              "quote": "This domain is for use in documentation examples without needing permission.",
+              "reason": "The evidence explicitly states the domain is intended for documentation examples, directly supporting the criterion.",
+              "status": "PASS"
+            },
+            {
+              "id": "production",
+              "quote": "This is not a service; avoid relying on it for testing and monitoring purposes.",
+              "reason": "The evidence explicitly advises against using the domain in operations, contradicting the criterion.",
+              "status": "FAIL"
+            }
+          ]
+        },
+        "evidence_sha256": "25ddf2c883e0d1958ea971d279a7e4f0fd446724ee3db7db19dadabd4a62e484",
+        "payout_ratio_bps": 7000,
+        "revision": 2,
+        "status": "FINALIZED",
+        "verdict": "PARTIAL_SETTLEMENT"
+      }
+    ],
+    "id": "VRD-PARTIAL-01",
+    "nominal_payout": 31500,
+    "payout_ratio_bps": 7000,
+    "protocol": "veridict-2.4.1",
+    "review_count": 1,
+    "review_reason": "Please reassess the operational-use criterion independently against the public source.",
+    "revision": 2,
+    "status": "FINALIZED",
+    "unit": "TEST",
+    "verdict": "PARTIAL_SETTLEMENT"
+  },
+  "protocol": {
+    "max_criteria": 6,
+    "max_evidence_chars": 24000,
+    "max_reviews": 1,
+    "protocol": "veridict-2.4.1",
+    "settlement": "NOMINAL_TEST_UNITS"
+  },
+  "verifiedAt": "2026-10-29T19:24:27.159Z"
+}

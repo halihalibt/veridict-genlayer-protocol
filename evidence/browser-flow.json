@@ -1,0 +1,95 @@
+{
+  "network": "GenLayer Stable Studionet",
+  "chainId": 61999,
+  "contractAddress": "0x5F59e0d421336FFEbDBf143a60637ae72d50Ab04",
+  "sourceSha256": "41c2e0b443e382b30e1ad11480e8333fda9367cfe31933a5514bccfae9dc8c4a",
+  "record": {
+    "assessment": {
+      "findings": [
+        {
+          "id": "purpose",
+          "quote": "This domain is for use in documentation examples without needing permission.",
+          "reason": "The page's body text explicitly states the domain is for use in documentation examples.",
+          "status": "PASS"
+        },
+        {
+          "id": "permission",
+          "quote": "This domain is for use in documentation examples without needing permission.",
+          "reason": "The same sentence explicitly permits documentation use without needing permission.",
+          "status": "PASS"
+        }
+      ]
+    },
+    "beneficiary": "0xbcda7480cb5a126a6d816ee63bf9ac7b7ff07cc7",
+    "claimant_statement": "Claimant asserts every condition is fully met. Verify the evidence independently; this assertion itself is not proof.",
+    "clause": "Evaluate this reference-page delivery against the agreed independently weighted acceptance criteria. Amounts are nominal test units only.",
+    "creator": "0xbcda7480cb5a126a6d816ee63bf9ac7b7ff07cc7",
+    "criteria": [
+      {
+        "id": "purpose",
+        "text": "The page explicitly identifies this domain as intended for documentation examples.",
+        "weight_bps": 7000
+      },
+      {
+        "id": "permission",
+        "text": "The page explicitly permits documentation use without needing permission.",
+        "weight_bps": 3000
+      }
+    ],
+    "equivalence_mode": "independent",
+    "escrow_amount": 45000,
+    "evidence_sha256": "25ddf2c883e0d1958ea971d279a7e4f0fd446724ee3db7db19dadabd4a62e484",
+    "evidence_snapshot": "<!doctype html><html lang=en><head><meta charset=utf-8><link rel=icon href=data:,><meta name=viewport content=\"width=device-width,initial-scale=1\"><title>Example Domain</title><style>html{color-scheme:light dark;background:light-dark(#eee,#222)}body{font:16px/1.6 system-ui,sans-serif;max-width:26em;margin:auto;padding:25vh 2em 2em;text-align:center}</style></head><body><p>This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes.</p><script src=/s.js></script></body></html>\n",
+    "evidence_url": "https://example.com/",
+    "history": [
+      {
+        "assessment": {
+          "findings": [
+            {
+              "id": "purpose",
+              "quote": "This domain is for use in documentation examples without needing permission.",
+              "reason": "The page's body text explicitly states the domain is for use in documentation examples.",
+              "status": "PASS"
+            },
+            {
+              "id": "permission",
+              "quote": "This domain is for use in documentation examples without needing permission.",
+              "reason": "The same sentence explicitly permits documentation use without needing permission.",
+              "status": "PASS"
+            }
+          ]
+        },
+        "evidence_sha256": "25ddf2c883e0d1958ea971d279a7e4f0fd446724ee3db7db19dadabd4a62e484",
+        "payout_ratio_bps": 10000,
+        "revision": 1,
+        "status": "FINALIZED",
+        "verdict": "FULFILLED"
+      }
+    ],
+    "id": "VRD-MVTXSWRG-C51A",
+    "nominal_payout": 45000,
+    "payout_ratio_bps": 10000,
+    "protocol": "veridict-2.4.1",
+    "review_count": 0,
+    "revision": 1,
+    "status": "FINALIZED",
+    "unit": "TEST",
+    "verdict": "FULFILLED"
+  },
+  "transactions": [
+    {
+      "hash": "0x513eeebb9ec6289786049e39cdb835cf791de640f40144d24b9e2633c45339ce",
+      "action": "adjudicate_claim",
+      "status": "ACCEPTED",
+      "agreementId": "VRD-MVTXSWRG-C51A"
+    },
+    {
+      "hash": "0x48eb043ad33ec1ab58ba78d4a898f62aff1da6aa4351ee950477aa0a584f977d",
+      "action": "create_agreement",
+      "status": "ACCEPTED",
+      "agreementId": "VRD-MVTXSWRG-C51A"
+    }
+  ],
+  "readAt": "2026-10-29T19:32:07.697Z",
+  "stateVariant": "latest-nonfinal"
+}

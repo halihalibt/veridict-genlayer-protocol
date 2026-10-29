@@ -1,0 +1,93 @@
+{
+  "ctor": {
+    "params": [],
+    "kwparams": {}
+  },
+  "methods": {
+    "adjudicate_claim": {
+      "params": [
+        [
+          "agreement_id",
+          "string"
+        ],
+        [
+          "claimant_statement",
+          "string"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "string",
+      "payable": false
+    },
+    "create_agreement": {
+      "params": [
+        [
+          "agreement_id",
+          "string"
+        ],
+        [
+          "beneficiary",
+          "string"
+        ],
+        [
+          "natural_language_clause",
+          "string"
+        ],
+        [
+          "evidence_url",
+          "string"
+        ],
+        [
+          "equivalence_mode",
+          "string"
+        ],
+        [
+          "escrow_amount",
+          "int"
+        ],
+        [
+          "criteria_json",
+          "string"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "string",
+      "payable": false
+    },
+    "get_agreement": {
+      "params": [
+        [
+          "agreement_id",
+          "string"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": true,
+      "ret": "string"
+    },
+    "get_protocol": {
+      "params": [],
+      "kwparams": {},
+      "readonly": true,
+      "ret": "string"
+    },
+    "request_review": {
+      "params": [
+        [
+          "agreement_id",
+          "string"
+        ],
+        [
+          "reason",
+          "string"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "string",
+      "payable": false
+    }
+  }
+}

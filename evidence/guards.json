@@ -1,0 +1,44 @@
+{
+  "chainId": 61999,
+  "contractAddress": "0x5F59e0d421336FFEbDBf143a60637ae72d50Ab04",
+  "method": "Remote GenVM write simulation (gen_call), no committed guard-test transactions",
+  "checks": [
+    {
+      "name": "UNAUTHORIZED_ADJUDICATION",
+      "expectedError": "AGREEMENT_PARTIES_ONLY",
+      "observedError": "AGREEMENT_PARTIES_ONLY",
+      "passed": true,
+      "executionResult": "ERROR"
+    },
+    {
+      "name": "UNAUTHORIZED_REVIEW",
+      "expectedError": "AGREEMENT_PARTIES_ONLY",
+      "observedError": "AGREEMENT_PARTIES_ONLY",
+      "passed": true,
+      "executionResult": "ERROR"
+    },
+    {
+      "name": "FINALIZED_REPLAY",
+      "expectedError": "REQUEST_REVIEW_BEFORE_READJUDICATION",
+      "observedError": "REQUEST_REVIEW_BEFORE_READJUDICATION",
+      "passed": true,
+      "executionResult": "ERROR"
+    },
+    {
+      "name": "REVIEW_LIMIT",
+      "expectedError": "REVIEW_LIMIT_REACHED",
+      "observedError": "REVIEW_LIMIT_REACHED",
+      "passed": true,
+      "executionResult": "ERROR"
+    },
+    {
+      "name": "DUPLICATE_AGREEMENT",
+      "expectedError": "AGREEMENT_ALREADY_EXISTS",
+      "observedError": "AGREEMENT_ALREADY_EXISTS",
+      "passed": true,
+      "executionResult": "ERROR"
+    }
+  ],
+  "stateUnchanged": true,
+  "verifiedAt": "2026-10-29T19:33:00.541Z"
+}

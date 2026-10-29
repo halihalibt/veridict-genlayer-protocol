@@ -1,0 +1,66 @@
+{
+  "chainId": 61999,
+  "contractAddress": "0x5F59e0d421336FFEbDBf143a60637ae72d50Ab04",
+  "sourceVerified": true,
+  "evidenceHashesVerified": true,
+  "reviewHistoryVerified": true,
+  "receipts": [
+    {
+      "name": "deploy",
+      "hash": "0xb58c95103246ed5c9555424ab3a426ebe93cdaed5266fd94c997a1405a81d3ce",
+      "status": "FINALIZED"
+    },
+    {
+      "name": "create-VRD-FULL-01",
+      "hash": "0xc00d27a485f0c9db60a3609323a276066e451c7f11350e4c652ea34f6344b27b",
+      "status": "FINALIZED"
+    },
+    {
+      "name": "judge-VRD-FULL-01",
+      "hash": "0x156b0c2e06a4baa1778b3f7df2b5c336dab940e85d850bae67a6172f011751a5",
+      "status": "FINALIZED"
+    },
+    {
+      "name": "create-VRD-PARTIAL-01",
+      "hash": "0x1af6cfe3dfe54e631f01a0f48e8722e55b252c411807bf70e8d91f0933647441",
+      "status": "FINALIZED"
+    },
+    {
+      "name": "judge-VRD-PARTIAL-01",
+      "hash": "0xa4fb38fea1d9d3ba6f378af0588598c04db4453437efdc1992e975d8dbf4a3c9",
+      "status": "FINALIZED"
+    },
+    {
+      "name": "create-VRD-UNKNOWN-01",
+      "hash": "0x8c278e0091b6809328e19ae69f19760853d850675f57d0f84bee1454461ff4cf",
+      "status": "FINALIZED"
+    },
+    {
+      "name": "judge-VRD-UNKNOWN-01",
+      "hash": "0x2541478212b3e41580f695365954d0d801237dd66bf157dc7dff0e5a3d6fcd38",
+      "status": "FINALIZED"
+    },
+    {
+      "name": "review",
+      "hash": "0x5d764227c91bb9bf47b2138b0416a8bfbaafa187a49485375b3ccf595e1f8dce",
+      "status": "FINALIZED"
+    },
+    {
+      "name": "reassess",
+      "hash": "0xe2fc143b5270daa6fe3bb51c30358816588511a78fabc2d4bca254ae789bffc4",
+      "status": "FINALIZED"
+    },
+    {
+      "name": "browser-adjudicate_claim",
+      "hash": "0x513eeebb9ec6289786049e39cdb835cf791de640f40144d24b9e2633c45339ce",
+      "status": "FINALIZED"
+    },
+    {
+      "name": "browser-create_agreement",
+      "hash": "0x48eb043ad33ec1ab58ba78d4a898f62aff1da6aa4351ee950477aa0a584f977d",
+      "status": "FINALIZED"
+    }
+  ],
+  "verifiedAt": "2026-10-29T19:36:43.669Z",
+  "browserFlowVerified": true
+}
