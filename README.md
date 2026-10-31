@@ -1,5 +1,9 @@
 # VERIDICT
 
+**Live website: [Open VERIDICT →](https://halihalibt.github.io/veridict-genlayer-protocol/)**
+
+https://halihalibt.github.io/veridict-genlayer-protocol/
+
 **Evidence before outcome.**
 
 VERIDICT records natural-language agreements, assesses public evidence against weighted acceptance criteria, and exposes a traceable decision on GenLayer Stable Studionet.
