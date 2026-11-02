@@ -6,6 +6,8 @@ import {
   type TransactionHash,
 } from "genlayer-js/types";
 import type { Agreement, Deployment, TxEntry } from "./types/veridict";
+import { executionFailure, pollFinalized, receiptStatus } from "./finality";
+export const FINAL_STATE_VARIANT = TransactionHashVariant.LATEST_FINAL;
 const endpoint = "https://studio.genlayer.com/api";
 type Client = ReturnType<typeof createClient>;
 type Provider = NonNullable<Parameters<typeof createClient>[0]>["provider"];
@@ -65,7 +67,7 @@ export async function readAgreement(
     address: deployment.contractAddress,
     functionName: "get_agreement",
     args: [id],
-    transactionHashVariant: TransactionHashVariant.LATEST_NONFINAL,
+    transactionHashVariant: FINAL_STATE_VARIANT,
   });
   const result = typeof raw === "string" ? JSON.parse(raw) : raw;
   return result && typeof result === "object" && "id" in result
@@ -104,50 +106,24 @@ export async function writeAgreement(
     agreementId: id,
   };
   onUpdate(tx);
-  const deadline = Date.now() + 540000;
-  while (Date.now() < deadline) {
-    const receipt = await reader.getTransaction({
-      hash: hash as TransactionHash,
-    });
-    const status = String(receipt.statusName || receipt.status || "PENDING");
-    tx = { ...tx, status };
-    onUpdate(tx);
-    if (
-      ["ACCEPTED", "FINALIZED"].includes(status) ||
-      [5, 7].includes(Number(receipt.status))
-    ) {
-      const leaders = receipt.consensus_data?.leader_receipt || [];
-      const failed = leaders.find(
-        (r) =>
-          r.execution_result &&
-          !["SUCCESS", "success"].includes(r.execution_result),
-      );
-      if (failed) {
-        onUpdate({ ...tx, status: "EXECUTION_FAILED" });
-        throw Error(
-          failed.error ||
-            `Contract execution failed. Inspect transaction ${hash}.`,
-        );
-      }
-      return readAgreement(deployment, id);
-    }
-    if (
-      [
-        "UNDETERMINED",
-        "CANCELED",
-        "LEADER_TIMEOUT",
-        "VALIDATORS_TIMEOUT",
-      ].includes(status)
-    )
-      throw Error(
-        `Consensus ${status}. Inspect the transaction and reload its agreement.`,
-      );
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-  }
-  throw Error(
-    `Still pending: ${hash}. Save this transaction and reload its agreement later. Do not resubmit blindly.`,
-  );
+  return followAgreementTransaction(deployment, tx, onUpdate);
 }
+export function followAgreementTransaction(
+  deployment: Deployment,
+  tx: TxEntry,
+  onUpdate: (tx: TxEntry) => void,
+  signal?: AbortSignal,
+) {
+  return pollFinalized({
+    hash: tx.hash,
+    getTransaction: () =>
+      reader.getTransaction({ hash: tx.hash as TransactionHash }),
+    readFinal: () => readAgreement(deployment, tx.agreementId),
+    onStatus: (status) => onUpdate({ ...tx, status }),
+    signal,
+  });
+}
+
 export function explorerTx(hash: string) {
   return `https://explorer-studio.genlayer.com/tx/${hash}`;
 }
@@ -159,12 +135,7 @@ export async function transactionStatus(hash: `0x${string}`) {
   const receipt = await reader.getTransaction({
     hash: hash as TransactionHash,
   });
-  const failed = (receipt.consensus_data?.leader_receipt || []).some(
-    (r) =>
-      r.execution_result &&
-      !["SUCCESS", "success"].includes(r.execution_result),
-  );
-  return failed
+  return executionFailure(receipt)
     ? "EXECUTION_FAILED"
-    : String(receipt.statusName || receipt.status || "PENDING");
+    : receiptStatus(receipt);
 }

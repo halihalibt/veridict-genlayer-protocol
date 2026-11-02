@@ -22,13 +22,13 @@ This deployment uses **nominal TEST units**. It does not receive, lock, transfer
 
 The interface checks the deployed source against this digest. [Execution records](evidence/onchain.json) include transaction hashes, observed contract state, the actual evidence snapshot and its hash. Each transaction's receipt is stored under `evidence/`.
 
-Contract decision status `FINALIZED` means the application assessment is complete. It is distinct from the network transaction's finality. The application reads **latest-nonfinal** state after accepted consensus, and exports that state variant explicitly. Inspect the transaction for its current network status.
+Contract decision status `FINALIZED` means the application assessment is complete. It is distinct from the network transaction's finality. The application waits for network transaction **FINALIZED**, then reads **latest-final** contract state and exports that state variant explicitly. ACCEPTED is an intermediate network status, not completion. Inspect the transaction for its current network status.
 
 ## Use the chamber
 
 1. Create a dedicated Studio test account, or connect a compatible browser wallet on chain 61999. The dedicated account exists only in this browser tab's session; do not deposit assets into it.
 2. Select a template. Change the clause, public HTTPS evidence URL, nominal amount and criteria as needed. Criterion weights must sum to 100%.
-3. Select **Create agreement on Studionet**. Wait for consensus acceptance and the contract state to load.
+3. Select **Create agreement on Studionet**. Wait for network transaction FINALIZED and the final contract state to load.
 4. Submit the claimant statement with **Adjudicate claim**. The statement is untrusted and is never used as proof on its own.
 5. Inspect criterion findings, verbatim source quotes, the committed snapshot, its SHA-256 and transaction hashes. Export the decision as JSON.
 6. Either agreement party can request one application-level evidence review. Re-adjudication fetches the same agreed URL again, preserves the first assessment and appends the new revision. The agreement's source and criteria remain immutable.
@@ -99,3 +99,15 @@ node scripts/guard-checks.mjs
 - `.github/workflows/pages.yml`: tests, production build and GitHub Pages deployment
 
 GitHub Pages serves a static build. Relative Vite assets support repository subpaths. The RPC and SDK are fixed to Stable Studionet; this app does not switch to another network as a fallback.
+
+## Browser finality checks
+
+Writes and saved-transaction recovery poll every 3 seconds for up to 9 minutes. Refreshing the page resumes tracking saved transactions that have not reached a terminal state. Unmounting the application cancels recovery timers. A timeout means final confirmation is still outstanding; keep the transaction hash and use **Check final confirmation** in the transaction journal instead of submitting again. If a finalized transaction cannot be read back, its hash remains in the journal with **Retry final read**. These actions only query the existing transaction and final contract state.
+
+Run the mocked browser-polling checks without a wallet, network calls or new transactions (Node.js 22.6+):
+
+```sh
+node --experimental-strip-types --test tests/finality.test.mjs
+```
+
+Historical exports under `evidence/` retain their original state variants and observed statuses. They describe the earlier execution and are not rewritten by this frontend change.

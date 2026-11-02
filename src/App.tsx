@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
   ArrowRight,
@@ -33,7 +33,10 @@ import {
   verifySource,
   writeAgreement,
   transactionStatus,
+  followAgreementTransaction,
+  FINAL_STATE_VARIANT,
 } from "./chain";
+import { FinalityTimeout, isTrackingTerminal } from "./finality";
 import type {
   Agreement,
   Criterion,
@@ -208,32 +211,20 @@ export default function App() {
     }
   });
   const workspace = useRef<HTMLElement>(null);
+  const selectedId = useRef(id);
+  useEffect(() => {
+    selectedId.current = id;
+  }, [id]);
   useEffect(() => {
     let live = true;
+    const recovery = new AbortController();
     const account = activeTestAccount();
     if (account) {
       setAddress(account);
       setAccountKind("Studio test account");
     }
     probeStudionetRpc().then((r) => live && setRpc(r));
-    const saved: TxEntry[] = JSON.parse(
-      sessionStorage.getItem("veridict-transactions") || "[]",
-    );
-    saved
-      .filter(
-        (t) =>
-          !["ACCEPTED", "FINALIZED", "EXECUTION_FAILED"].includes(t.status),
-      )
-      .forEach((t) => {
-        transactionStatus(t.hash)
-          .then((status) => {
-            if (live)
-              setLedger((prev) =>
-                prev.map((x) => (x.hash === t.hash ? { ...x, status } : x)),
-              );
-          })
-          .catch(() => {});
-      });
+    const saved = ledger;
     fetch(`${import.meta.env.BASE_URL}deployment.json`)
       .then((r) => {
         if (!r.ok) throw Error("Deployment metadata is unavailable");
@@ -245,9 +236,48 @@ export default function App() {
         if (!live) return;
         setDeployment(d);
         await verifySource(d);
-        if (live) setSourceStatus("verified");
+        if (!live) return;
+        setSourceStatus("verified");
+        saved
+          .filter((t) => !isTrackingTerminal(t.status))
+          .forEach((t) => {
+            followAgreementTransaction(
+              d,
+              t,
+              (tx) => {
+                if (live)
+                  setLedger((prev) =>
+                    prev.map((x) => (x.hash === tx.hash ? tx : x)),
+                  );
+              },
+              recovery.signal,
+            )
+              .then((r) => {
+                if (live && selectedId.current === t.agreementId) {
+                  hydrate(r);
+                  setNote(
+                    `Transaction ${t.hash} is FINALIZED. Final-state agreement loaded.`,
+                  );
+                }
+              })
+              .catch((e) => {
+                if (!live || selectedId.current !== t.agreementId) return;
+                if (e instanceof FinalityTimeout) setNote(e.message);
+                else
+                  setError(
+                    e instanceof Error
+                      ? e.message
+                      : "Could not track the saved transaction",
+                  );
+              });
+          });
         const last = sessionStorage.getItem("veridict-last-id");
-        if (last) {
+        if (
+          last &&
+          !saved.some(
+            (t) => t.agreementId === last && !isTrackingTerminal(t.status),
+          )
+        ) {
           const r = await readAgreement(d, last);
           if (live && r) hydrate(r);
         }
@@ -260,6 +290,7 @@ export default function App() {
       });
     return () => {
       live = false;
+      recovery.abort();
     };
   }, []);
   useEffect(() => {
@@ -313,7 +344,8 @@ export default function App() {
       await fn();
       soundEngine.playFinalityChord();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Operation failed");
+      if (e instanceof FinalityTimeout) setNote(e.message);
+      else setError(e instanceof Error ? e.message : "Operation failed");
     } finally {
       setBusy("");
     }
@@ -849,7 +881,7 @@ export default function App() {
                       await write("adjudicate_claim", [id, claim]);
                       setTab("findings");
                       setNote(
-                        "Consensus accepted. The results below were read directly from contract state.",
+                        "Network transaction FINALIZED. The results below were read from final contract state.",
                       );
                     })
                   }
@@ -1067,7 +1099,7 @@ export default function App() {
                           record,
                           transactions: activeLedger,
                           readAt: new Date().toISOString(),
-                          stateVariant: "latest-nonfinal",
+                          stateVariant: FINAL_STATE_VARIANT,
                         })
                       }
                     >
@@ -1162,21 +1194,47 @@ export default function App() {
                 </div>
                 {activeLedger.length ? (
                   activeLedger.map((t) => (
-                    <a
-                      key={t.hash}
-                      href={explorerTx(t.hash)}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <div>
-                        <b>{t.action.replace(/_/g, " ")}</b>
-                        <code>{short(t.hash)}</code>
-                      </div>
-                      <span>
-                        {t.status}
-                        <ArrowUpRight size={11} />
-                      </span>
-                    </a>
+                    <Fragment key={t.hash}>
+                      <a
+                        href={explorerTx(t.hash)}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <div>
+                          <b>{t.action.replace(/_/g, " ")}</b>
+                          <code>{short(t.hash)}</code>
+                        </div>
+                        <span>
+                          {t.status}
+                          <ArrowUpRight size={11} />
+                        </span>
+                      </a>
+                      {(!isTrackingTerminal(t.status) ||
+                        t.status === "FINALIZED") && (
+                        <button
+                          className="text-button"
+                          disabled={!!busy || !deployment}
+                          onClick={() =>
+                            perform("Checking final confirmation", async () => {
+                              const r = await followAgreementTransaction(
+                                deployment!,
+                                t,
+                                txUpdate,
+                              );
+                              hydrate(r);
+                              setNote(
+                                `Transaction ${t.hash} is FINALIZED. Final-state agreement loaded.`,
+                              );
+                            })
+                          }
+                        >
+                          <RefreshCw size={13} />
+                          {t.status === "FINALIZED"
+                            ? "Retry final read"
+                            : "Check final confirmation"}
+                        </button>
+                      )}
+                    </Fragment>
                   ))
                 ) : (
                   <p>Real transaction hashes appear here after submission.</p>
