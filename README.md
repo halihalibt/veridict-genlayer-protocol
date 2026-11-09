@@ -27,7 +27,7 @@ Contract decision status `FINALIZED` means the application assessment is complet
 ## Use the chamber
 
 1. Create a dedicated Studio test account, or connect a compatible browser wallet on chain 61999. The dedicated account exists only in this browser tab's session; do not deposit assets into it.
-2. Select a template. Change the clause, public HTTPS evidence URL, nominal amount and criteria as needed. Criterion weights must sum to 100%.
+2. Select a template. Change the clause, public HTTPS evidence URL, nominal amount and criteria as needed. Criterion weights must sum to 100%. Set a distinct beneficiary address when the agreement is for someone else; leave the field empty to use your connected address. The beneficiary can load the agreement and request adjudication or review.
 3. Select **Create agreement on Studionet**. Wait for network transaction FINALIZED and the final contract state to load.
 4. Submit the claimant statement with **Adjudicate claim**. The statement is untrusted and is never used as proof on its own.
 5. Inspect criterion findings, verbatim source quotes, the committed snapshot, its SHA-256 and transaction hashes. Export the decision as JSON.
@@ -40,8 +40,11 @@ Use **Read verified examples** without a wallet to inspect existing decisions. T
 | `VRD-FULL-01` | `FULFILLED` | 100% |
 | `VRD-PARTIAL-01` | `PARTIAL_SETTLEMENT` | 70% |
 | `VRD-UNKNOWN-01` | `INSUFFICIENT_EVIDENCE` / `REVIEW_REQUIRED` | Held at 0% |
+| `VRD-BENEFICIARY-01` | `FULFILLED` | 100% |
 
 `VRD-PARTIAL-01` also has an on-chain review request and a second assessment, with both revisions retained.
+
+`VRD-BENEFICIARY-01` was created for a beneficiary address distinct from the creator. The beneficiary loaded the agreement, adjudicated the claim, requested the review and re-adjudicated, with both revisions retained. The four transactions are `create-VRD-BENEFICIARY-01`, `judge-VRD-BENEFICIARY-01`, `review-VRD-BENEFICIARY-01` and `reassess-VRD-BENEFICIARY-01` in `evidence/onchain.json`.
 
 ## Decision and validation
 
@@ -95,6 +98,7 @@ node scripts/guard-checks.mjs
 - `src/App.tsx`: agreement editor, decisions, evidence, history and transaction journal
 - `src/chain.ts`: pinned-chain clients, source checks, wallet/test-account signing and receipt polling
 - `scripts/onchain.mjs`: checkpointed deployment and live verification
+- `scripts/beneficiary-case.mjs`: beneficiary-led evidence case against the existing deployment (no redeploy)
 - `evidence/`: public transaction receipts and observed states
 - `.github/workflows/pages.yml`: tests, production build and GitHub Pages deployment
 

@@ -86,10 +86,21 @@ async function finish(name, hash) {
   );
   const receipts = raw.consensus_data?.leader_receipt || [];
   const leaders = Array.isArray(receipts) ? receipts : [receipts];
+  // A leader receipt can carry an ERROR entry whose result decodes to
+  // "idle": a validator that sat out consensus, not a failed execution.
+  // Only a failure with no successful leader execution at all is fatal.
+  const decoded = (s) => {
+    try {
+      return Buffer.from(s || "", "base64").toString("utf-8");
+    } catch {
+      return "";
+    }
+  };
   const bad = leaders.find(
     (r) =>
       r.execution_result &&
-      !["SUCCESS", "success"].includes(r.execution_result),
+      !["SUCCESS", "success"].includes(r.execution_result) &&
+      !decoded(r.result).includes("idle"),
   );
   if (bad) {
     console.error(
@@ -99,6 +110,8 @@ async function finish(name, hash) {
     );
     throw Error(`Execution failed for ${name}`);
   }
+  if (!leaders.some((r) => ["SUCCESS", "success"].includes(r.execution_result)))
+    throw Error(`No successful leader execution for ${name}`);
   if (
     [
       "UNDETERMINED",

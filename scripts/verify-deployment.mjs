@@ -64,10 +64,24 @@ for (const [name, hash] of Object.entries(proof.transactions)) {
     ["ACCEPTED", "FINALIZED"].includes(raw.status),
     `${name}: ${raw.status}`,
   );
+  // A leader receipt can carry an ERROR entry whose result decodes to
+  // "idle": a validator that sat out consensus, not a failed execution.
+  // Require at least one SUCCESS leader receipt and no non-idle failure.
+  const leaders = raw.consensus_data.leader_receipt || [];
+  const isIdle = (r) => {
+    try {
+      return Buffer.from(r.result || "", "base64")
+        .toString("utf-8")
+        .includes("idle");
+    } catch {
+      return false;
+    }
+  };
   assert.ok(
-    raw.consensus_data.leader_receipt.every(
-      (r) => r.execution_result === "SUCCESS",
-    ),
+    leaders.some((r) => r.execution_result === "SUCCESS") &&
+      leaders.every(
+        (r) => r.execution_result === "SUCCESS" || isIdle(r),
+      ),
     `${name}: execution failed`,
   );
   receipts.push({ name, hash, status: raw.status });

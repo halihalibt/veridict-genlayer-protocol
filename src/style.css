@@ -701,6 +701,19 @@ em {
   letter-spacing: 0.8px;
   color: #919ba8;
 }
+.parties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 32px;
+  margin: 16px 0 4px;
+}
+.parties .field-label {
+  display: block;
+  margin-bottom: 3px;
+}
+.parties code {
+  font-size: 13px;
+}
 .criteria-heading > span:last-child {
   font: 9px var(--mono);
 }

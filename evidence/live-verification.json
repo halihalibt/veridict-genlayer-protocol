@@ -51,6 +51,26 @@
       "status": "FINALIZED"
     },
     {
+      "name": "create-VRD-BENEFICIARY-01",
+      "hash": "0xaeb8e93ca6216dda77bf563dc5edd47dde5d49aacb51baea8fc45d995d894dd2",
+      "status": "FINALIZED"
+    },
+    {
+      "name": "judge-VRD-BENEFICIARY-01",
+      "hash": "0xef16b25513ef12a21630b6a676be24afa73ab429ceb5a62a32bdf96e4e66fa5a",
+      "status": "FINALIZED"
+    },
+    {
+      "name": "review-VRD-BENEFICIARY-01",
+      "hash": "0xb268a29c26ed59dc4a5b53ced39a6947c42c931f35e64e501d975d9faf55f753",
+      "status": "FINALIZED"
+    },
+    {
+      "name": "reassess-VRD-BENEFICIARY-01",
+      "hash": "0x9d5e54e6869c73211757cfbd841a995a0313e3bd4441ed836cf85a0aec012ead",
+      "status": "FINALIZED"
+    },
+    {
       "name": "browser-adjudicate_claim",
       "hash": "0x513eeebb9ec6289786049e39cdb835cf791de640f40144d24b9e2633c45339ce",
       "status": "FINALIZED"
@@ -61,6 +81,5 @@
       "status": "FINALIZED"
     }
   ],
-  "verifiedAt": "2026-10-29T19:36:43.669Z",
-  "browserFlowVerified": true
+  "verifiedAt": "2026-11-09T15:30:43.792Z"
 }

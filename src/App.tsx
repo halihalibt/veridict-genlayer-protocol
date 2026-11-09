@@ -185,6 +185,7 @@ export default function App() {
   const [clause, setClause] = useState(initialClause);
   const [url, setUrl] = useState("https://example.com/");
   const [amount, setAmount] = useState(45000);
+  const [beneficiary, setBeneficiary] = useState("");
   const [mode, setMode] = useState<"independent" | "audited">("independent");
   const [criteria, setCriteria] = useState<Criterion[]>(
     CASE_SCENARIOS[0].criteria.map((c) => ({ ...c })),
@@ -314,6 +315,7 @@ export default function App() {
     setClause(r.clause);
     setUrl(r.evidence_url);
     setAmount(r.escrow_amount);
+    setBeneficiary(r.beneficiary);
     setMode(r.equivalence_mode);
     setCriteria(r.criteria);
     if (r.claimant_statement) setClaim(r.claimant_statement);
@@ -328,6 +330,7 @@ export default function App() {
     setClause(initialClause);
     setUrl("https://example.com/");
     setAmount(45000);
+    setBeneficiary("");
     setMode(t.mode);
     setCriteria(t.criteria.map((c) => ({ ...c })));
     setError("");
@@ -387,7 +390,9 @@ export default function App() {
           agreementId: id,
           action: key.startsWith("create-")
             ? "create_agreement"
-            : key.startsWith("judge-") || key === "reassess"
+            : key.startsWith("judge-") ||
+                key === "reassess" ||
+                key.startsWith("reassess-")
               ? "adjudicate_claim"
               : "request_review",
           status: "RECORDED",
@@ -665,10 +670,15 @@ export default function App() {
                       );
                     if (total !== 10000)
                       throw Error("Criterion weights must add up to 100%");
+                    const beneficiaryAddress = beneficiary.trim() || address;
+                    if (!/^0x[0-9a-fA-F]{40}$/.test(beneficiaryAddress))
+                      throw Error(
+                        "Beneficiary must be a 0x address with 40 hexadecimal characters",
+                      );
                     sessionStorage.setItem("veridict-last-id", id);
                     await write("create_agreement", [
                       id,
-                      address,
+                      beneficiaryAddress,
                       clause,
                       url,
                       mode,
@@ -732,6 +742,24 @@ export default function App() {
                       />
                     </div>
                   </label>
+                  <label>
+                    Beneficiary address
+                    <input
+                      value={beneficiary}
+                      maxLength={42}
+                      placeholder={
+                        address
+                          ? `Defaults to your connected address ${address}`
+                          : "0x…"
+                      }
+                      onChange={(e) => setBeneficiary(e.target.value.trim())}
+                    />
+                  </label>
+                  <p className="hint">
+                    The beneficiary can load the agreement and request
+                    adjudication or review. Leave empty to use your connected
+                    address.
+                  </p>
                   <div className="criteria-heading">
                     <span className="field-label">Acceptance criteria</span>
                     <span className={total === 10000 ? "mint" : "rose"}>
@@ -1004,6 +1032,16 @@ export default function App() {
                         ? "Previous decision shown · review pending"
                         : "Contract decision · no token transfer"}
                     </small>
+                  </div>
+                  <div className="parties">
+                    <div>
+                      <span className="field-label">CREATOR</span>
+                      <code>{short(record.creator)}</code>
+                    </div>
+                    <div>
+                      <span className="field-label">BENEFICIARY</span>
+                      <code>{short(record.beneficiary)}</code>
+                    </div>
                   </div>
                   <div className="result-tabs" role="tablist">
                     {(["findings", "source", "history"] as const).map((t) => (

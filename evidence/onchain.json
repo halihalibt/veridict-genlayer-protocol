@@ -13,7 +13,11 @@
     "create-VRD-UNKNOWN-01": "0x8c278e0091b6809328e19ae69f19760853d850675f57d0f84bee1454461ff4cf",
     "judge-VRD-UNKNOWN-01": "0x2541478212b3e41580f695365954d0d801237dd66bf157dc7dff0e5a3d6fcd38",
     "review": "0x5d764227c91bb9bf47b2138b0416a8bfbaafa187a49485375b3ccf595e1f8dce",
-    "reassess": "0xe2fc143b5270daa6fe3bb51c30358816588511a78fabc2d4bca254ae789bffc4"
+    "reassess": "0xe2fc143b5270daa6fe3bb51c30358816588511a78fabc2d4bca254ae789bffc4",
+    "create-VRD-BENEFICIARY-01": "0xaeb8e93ca6216dda77bf563dc5edd47dde5d49aacb51baea8fc45d995d894dd2",
+    "judge-VRD-BENEFICIARY-01": "0xef16b25513ef12a21630b6a676be24afa73ab429ceb5a62a32bdf96e4e66fa5a",
+    "review-VRD-BENEFICIARY-01": "0xb268a29c26ed59dc4a5b53ced39a6947c42c931f35e64e501d975d9faf55f753",
+    "reassess-VRD-BENEFICIARY-01": "0x9d5e54e6869c73211757cfbd841a995a0313e3bd4441ed836cf85a0aec012ead"
   },
   "cases": [
     {
@@ -255,6 +259,118 @@
         "verdict": "INSUFFICIENT_EVIDENCE"
       },
       "verifiedAt": "2026-10-29T19:23:53.054Z"
+    },
+    {
+      "id": "VRD-BENEFICIARY-01",
+      "title": "Beneficiary-led adjudication",
+      "expectedVerdict": "FULFILLED",
+      "expectedRatioBps": 10000,
+      "creator": "0x719A5F31Ef2cE5E82025e8B0196F02722FaFa920",
+      "beneficiary": "0x1BDaCc8fcAc780CBAD0bFD1fd5B5C41e6e9C6562",
+      "beneficiaryActions": {
+        "loadedAgreement": true,
+        "adjudicate_claim": "0xef16b25513ef12a21630b6a676be24afa73ab429ceb5a62a32bdf96e4e66fa5a",
+        "request_review": "0xb268a29c26ed59dc4a5b53ced39a6947c42c931f35e64e501d975d9faf55f753",
+        "readjudicate_claim": "0x9d5e54e6869c73211757cfbd841a995a0313e3bd4441ed836cf85a0aec012ead"
+      },
+      "state": {
+        "assessment": {
+          "findings": [
+            {
+              "id": "purpose",
+              "quote": "This domain is for use in documentation examples without needing permission.",
+              "reason": "The source explicitly states the domain is for use in documentation examples.",
+              "status": "PASS"
+            },
+            {
+              "id": "permission",
+              "quote": "without needing permission.",
+              "reason": "The source explicitly says documentation use does not require permission.",
+              "status": "PASS"
+            }
+          ]
+        },
+        "beneficiary": "0x1bdacc8fcac780cbad0bfd1fd5b5c41e6e9c6562",
+        "claimant_statement": "Please reassess each criterion from the fetched evidence. Do not accept my assertion as proof.",
+        "clause": "Evaluate this reference-page delivery against the agreed independently weighted acceptance criteria. Amounts are nominal test units only.",
+        "creator": "0x719a5f31ef2ce5e82025e8b0196f02722fafa920",
+        "criteria": [
+          {
+            "id": "purpose",
+            "text": "The page explicitly identifies this domain as intended for documentation examples.",
+            "weight_bps": 7000
+          },
+          {
+            "id": "permission",
+            "text": "The page explicitly permits documentation use without needing permission.",
+            "weight_bps": 3000
+          }
+        ],
+        "equivalence_mode": "independent",
+        "escrow_amount": 45000,
+        "evidence_sha256": "25ddf2c883e0d1958ea971d279a7e4f0fd446724ee3db7db19dadabd4a62e484",
+        "evidence_snapshot": "<!doctype html><html lang=en><head><meta charset=utf-8><link rel=icon href=data:,><meta name=viewport content=\"width=device-width,initial-scale=1\"><title>Example Domain</title><style>html{color-scheme:light dark;background:light-dark(#eee,#222)}body{font:16px/1.6 system-ui,sans-serif;max-width:26em;margin:auto;padding:25vh 2em 2em;text-align:center}</style></head><body><p>This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes.</p><script src=/s.js></script></body></html>\n",
+        "evidence_url": "https://example.com/",
+        "history": [
+          {
+            "assessment": {
+              "findings": [
+                {
+                  "id": "purpose",
+                  "quote": "This domain is for use in documentation examples without needing permission.",
+                  "reason": "The page's body text directly states the domain is for use in documentation examples, matching the criterion.",
+                  "status": "PASS"
+                },
+                {
+                  "id": "permission",
+                  "quote": "This domain is for use in documentation examples without needing permission.",
+                  "reason": "The page explicitly says documentation use is allowed without needing permission, satisfying the criterion.",
+                  "status": "PASS"
+                }
+              ]
+            },
+            "evidence_sha256": "25ddf2c883e0d1958ea971d279a7e4f0fd446724ee3db7db19dadabd4a62e484",
+            "payout_ratio_bps": 10000,
+            "revision": 1,
+            "status": "FINALIZED",
+            "verdict": "FULFILLED"
+          },
+          {
+            "assessment": {
+              "findings": [
+                {
+                  "id": "purpose",
+                  "quote": "This domain is for use in documentation examples without needing permission.",
+                  "reason": "The source explicitly states the domain is for use in documentation examples.",
+                  "status": "PASS"
+                },
+                {
+                  "id": "permission",
+                  "quote": "without needing permission.",
+                  "reason": "The source explicitly says documentation use does not require permission.",
+                  "status": "PASS"
+                }
+              ]
+            },
+            "evidence_sha256": "25ddf2c883e0d1958ea971d279a7e4f0fd446724ee3db7db19dadabd4a62e484",
+            "payout_ratio_bps": 10000,
+            "revision": 2,
+            "status": "FINALIZED",
+            "verdict": "FULFILLED"
+          }
+        ],
+        "id": "VRD-BENEFICIARY-01",
+        "nominal_payout": 45000,
+        "payout_ratio_bps": 10000,
+        "protocol": "veridict-2.4.1",
+        "review_count": 1,
+        "review_reason": "Please independently reassess the criterion findings against the public evidence source.",
+        "revision": 2,
+        "status": "FINALIZED",
+        "unit": "TEST",
+        "verdict": "FULFILLED"
+      },
+      "verifiedAt": "2026-11-09T15:29:49.582Z"
     }
   ],
   "verification": "VERIFIED",
@@ -364,5 +480,5 @@
     "protocol": "veridict-2.4.1",
     "settlement": "NOMINAL_TEST_UNITS"
   },
-  "verifiedAt": "2026-10-29T19:24:27.159Z"
+  "verifiedAt": "2026-11-09T15:29:49.582Z"
 }
